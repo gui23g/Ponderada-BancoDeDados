@@ -1,0 +1,33 @@
+CREATE TABLE manuals (
+    id SERIAL PRIMARY KEY,
+    title VARCHAR(50) NOT NULL DEFAULT NULL,
+    description TEXT NOT NULL DEFAULT NULL,
+    link_pdf VARCHAR NOT NULL DEFAULT NULL,
+    version INTEGER NOT NULL DEFAULT NULL,
+    additional_content VARCHAR DEFAULT NULL,
+    id_hardwares INTEGER,
+    FOREIGN KEY (id_hardwares) REFERENCES hardwares(id)
+);
+
+CREATE TABLE users (
+    id SERIAL PRIMARY KEY,
+    name VARCHAR(50) NOT NULL DEFAULT NULL,
+    function VARCHAR(10) NOT NULL DEFAULT NULL,
+    email VARCHAR(15) NOT NULL DEFAULT NULL,
+    password VARCHAR NOT NULL DEFAULT NULL
+);
+
+CREATE TABLE hardwares (
+    id SERIAL PRIMARY KEY,
+    name VARCHAR(20) NOT NULL DEFAULT NULL,
+    type VARCHAR(15) NOT NULL DEFAULT NULL
+);
+
+CREATE TABLE tasks (
+    id SERIAL PRIMARY KEY,
+    user_progress INTEGER NOT NULL DEFAULT NULL,
+    id_manuals INTEGER,
+    id_users INTEGER,
+    FOREIGN KEY (id_manuals) REFERENCES manuals(id),
+    FOREIGN KEY (id_users) REFERENCES users(id)
+);
